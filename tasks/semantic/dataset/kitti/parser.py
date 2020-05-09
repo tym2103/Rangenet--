@@ -45,7 +45,7 @@ class SemanticKitti(Dataset):
     self.sensor_fov_down = sensor["fov_down"]
     self.max_points = max_points
     self.gt = gt
-
+    self.scan = None
     # get number of classes (can't be len(self.learning_map) because there
     # are multiple repeated entries, so the number that matters is how many
     # there are for the xentropy)
@@ -179,7 +179,7 @@ class SemanticKitti(Dataset):
     # print("path_norm: ", path_norm)
     # print("path_seq", path_seq)
     # print("path_name", path_name)
-
+    self.scan = scan
     # return
     return proj, proj_mask, proj_labels, unproj_labels, path_seq, path_name, proj_x, proj_y, proj_range, unproj_range, proj_xyz, unproj_xyz, proj_remission, unproj_remissions, unproj_n_points
 
@@ -244,10 +244,9 @@ class Parser():
     self.sensor = sensor
     self.max_points = max_points
     self.batch_size = batch_size
-    self.workers = 0
+    self.workers = workers
     self.gt = gt
     self.shuffle_train = shuffle_train
-
     # number of classes that matters is the one for xentropy
     self.nclasses = len(self.learning_map_inv)
 

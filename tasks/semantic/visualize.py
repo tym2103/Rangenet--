@@ -14,7 +14,8 @@ if __name__ == '__main__':
   parser.add_argument(
       '--dataset', '-d',
       type=str,
-      required=True,
+      required=False,
+      default='/data/semantickitti/dataset/',
       help='Dataset to visualize. No Default',
   )
   parser.add_argument(

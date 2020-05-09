@@ -25,6 +25,7 @@ from common.warmupLR import *
 from tasks.semantic.modules.segmentator import *
 from tasks.semantic.modules.ioueval import *
 
+from tasks.semantic.dataset.kitti.parser import Parser
 
 class Trainer():
   def __init__(self, ARCH, DATA, datadir, logdir, path=None):
@@ -50,24 +51,38 @@ class Trainer():
                  "post_lr": 0}
 
     # get the data
-    parserModule = imp.load_source("parserModule",
-                                   booger.TRAIN_PATH + '/tasks/semantic/dataset/' +
-                                   self.DATA["name"] + '/parser.py')
-    self.parser = parserModule.Parser(root=self.datadir,
-                                      train_sequences=self.DATA["split"]["train"],
-                                      valid_sequences=self.DATA["split"]["valid"],
-                                      test_sequences=None,
-                                      labels=self.DATA["labels"],
-                                      color_map=self.DATA["color_map"],
-                                      learning_map=self.DATA["learning_map"],
-                                      learning_map_inv=self.DATA["learning_map_inv"],
-                                      sensor=self.ARCH["dataset"]["sensor"],
-                                      max_points=self.ARCH["dataset"]["max_points"],
-                                      batch_size=self.ARCH["train"]["batch_size"],
-                                      workers=self.ARCH["train"]["workers"],
-                                      gt=True,
-                                      shuffle_train=True)
-
+    # parserModule = imp.load_source("parserModule",
+    #                                booger.TRAIN_PATH + '/tasks/semantic/dataset/' +
+    #                                self.DATA["name"] + '/parser.py')
+    # self.parser = parserModule.Parser(root=self.datadir,
+    #                                   train_sequences=self.DATA["split"]["train"],
+    #                                   valid_sequences=self.DATA["split"]["valid"],
+    #                                   test_sequences=None,
+    #                                   labels=self.DATA["labels"],
+    #                                   color_map=self.DATA["color_map"],
+    #                                   learning_map=self.DATA["learning_map"],
+    #                                   learning_map_inv=self.DATA["learning_map_inv"],
+    #                                   sensor=self.ARCH["dataset"]["sensor"],
+    #                                   max_points=self.ARCH["dataset"]["max_points"],
+    #                                   batch_size=self.ARCH["train"]["batch_size"],
+    #                                   workers=self.ARCH["train"]["workers"],
+    #                                   gt=True,
+    #                                   shuffle_train=True)
+    # flag
+    self.parser = Parser(root=self.datadir,
+                         train_sequences=self.DATA["split"]["train"],
+                         valid_sequences=self.DATA["split"]["valid"],
+                         test_sequences=None,
+                         labels=self.DATA["labels"],
+                         color_map=self.DATA["color_map"],
+                         learning_map=self.DATA["learning_map"],
+                         learning_map_inv=self.DATA["learning_map_inv"],
+                         sensor=self.ARCH["dataset"]["sensor"],
+                         max_points=self.ARCH["dataset"]["max_points"],
+                         batch_size=self.ARCH["train"]["batch_size"],
+                         workers=self.ARCH["train"]["workers"],
+                         gt=True,
+                         shuffle_train=True)
     # weights for loss (and bias)
     # weights for loss (and bias)
     epsilon_w = self.ARCH["train"]["epsilon_w"]

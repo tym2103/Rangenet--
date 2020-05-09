@@ -68,6 +68,8 @@ class KNN(nn.Module):
     # number of points
     P = unproj_range.shape
 
+    # A = proj_range[py, px]-unproj_range
+    # print(torch.sum(torch.abs(A)))
     # check if size of kernel is odd and complain
     if (self.search % 2 == 0):
       raise ValueError("Nearest neighbor kernel must be odd number")

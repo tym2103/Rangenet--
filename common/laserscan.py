@@ -165,6 +165,7 @@ class LaserScan:
     self.proj_remission[proj_y, proj_x] = remission
     self.proj_idx[proj_y, proj_x] = indices
     self.proj_mask = (self.proj_idx > 0).astype(np.int32)
+    print("")
 
 
 class SemLaserScan(LaserScan):

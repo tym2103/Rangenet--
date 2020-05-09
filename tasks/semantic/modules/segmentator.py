@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # This file is covered by the LICENSE file in the root of this project.
-
+# 融合网络的解码编码器
 import imp
 import torch
 import torch.nn as nn

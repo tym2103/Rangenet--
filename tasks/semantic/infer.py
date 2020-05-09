@@ -18,21 +18,22 @@ if __name__ == '__main__':
   parser.add_argument(
       '--dataset', '-d',
       type=str,
-      required=True,
+      required=False,
+      default='/data/semantickitti/dataset/',
       help='Dataset to train with. No Default',
   )
   parser.add_argument(
       '--log', '-l',
       type=str,
-      default=os.path.expanduser("~") + '/logs/' +
+      default='/data/RangeNet/logs/' +
       datetime.datetime.now().strftime("%Y-%-m-%d-%H:%M") + '/',
       help='Directory to put the predictions. Default: ~/logs/date+time'
   )
   parser.add_argument(
       '--model', '-m',
       type=str,
-      required=True,
-      default=None,
+      required=False,
+      default='/data/RangeNet/logs/net/',
       help='Directory to get the trained model.'
   )
   FLAGS, unparsed = parser.parse_known_args()
@@ -44,9 +45,9 @@ if __name__ == '__main__':
   print("log", FLAGS.log)
   print("model", FLAGS.model)
   print("----------\n")
-  print("Commit hash (training version): ", str(
-      subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).strip()))
-  print("----------\n")
+  # print("Commit hash (training version): ", str(
+  #     subprocess.check_output(['git', 'rev-parse', '--short', 'HEAD']).strip()))
+  # print("----------\n")
 
   # open arch config file
   try:
